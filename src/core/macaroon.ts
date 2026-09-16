@@ -1,5 +1,6 @@
 import { Caveat, Macaroon } from '../types.js';
 import { hmacSha256, constantTimeEqual } from './crypto.js';
+import { Buffer } from 'node:buffer';
 
 /**
  * L402 Macaroon Engine

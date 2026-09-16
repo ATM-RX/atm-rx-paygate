@@ -42,15 +42,19 @@ export function createServerApp(config: AppConfig) {
 
   // 2. Health & Telemetry Check
   app.get('/health', (c) => {
-    const mem = process.memoryUsage();
+    const hasProcess = typeof process !== 'undefined';
+    const mem = hasProcess && typeof process.memoryUsage === 'function' ? process.memoryUsage() : null;
+    const uptime = hasProcess && typeof process.uptime === 'function' ? Math.floor(process.uptime()) : null;
+
     return c.json({
       status: 'operational',
-      uptimeSeconds: Math.floor(process.uptime()),
-      memory: {
+      runtime: typeof navigator !== 'undefined' && (navigator as any).userAgent ? (navigator as any).userAgent : 'edge-isolate',
+      uptimeSeconds: uptime,
+      memory: mem ? {
         rssMb: Number((mem.rss / (1024 * 1024)).toFixed(2)),
         heapUsedMb: Number((mem.heapUsed / (1024 * 1024)).toFixed(2)),
         heapTotalMb: Number((mem.heapTotal / (1024 * 1024)).toFixed(2))
-      },
+      } : { edgeIsolate: 'managed_by_cloudflare' },
       driver: driver.name,
       timestamp: new Date().toISOString()
     });

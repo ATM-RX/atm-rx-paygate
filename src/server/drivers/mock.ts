@@ -1,5 +1,6 @@
 import { Invoice, ServerSettlementDriver } from '../../types.js';
 import { generateRandomHex, sha256, verifyPreimage } from '../../core/crypto.js';
+import { Buffer } from 'node:buffer';
 
 /**
  * Sandbox Mock Settlement Driver

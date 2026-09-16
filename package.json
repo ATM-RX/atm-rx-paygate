@@ -34,14 +34,16 @@
     "dotenv": "^16.4.7",
     "hono": "^4.6.14",
     "localtunnel": "^2.0.2",
-    "qrcode-terminal": "^0.12.0"
+    "qrcode-terminal": "^0.12.0",
+    "undici": "^6.28.1"
   },
   "devDependencies": {
     "@types/localtunnel": "^2.0.4",
     "@types/node": "^22.10.2",
     "@types/qrcode-terminal": "^0.12.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "wrangler": "^3.114.17"
   },
   "engines": {
     "node": ">=20.0.0"

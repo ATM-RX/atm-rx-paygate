@@ -23,17 +23,26 @@ export class BudgetPolicyEngine {
   private policy: BudgetPolicy;
   private budgetFilePath: string;
 
-  constructor(policy?: Partial<BudgetPolicy>) {
+  constructor(policy?: Partial<BudgetPolicy>, customBudgetFilePath?: string) {
     this.policy = {
       maxSatsPerRequest: policy?.maxSatsPerRequest ?? 50,
       dailyBudgetSats: policy?.dailyBudgetSats ?? 500
     };
 
-    const l402Dir = path.join(os.homedir(), '.l402');
-    if (!fs.existsSync(l402Dir)) {
-      fs.mkdirSync(l402Dir, { recursive: true, mode: 0o700 });
+    if (customBudgetFilePath) {
+      this.budgetFilePath = customBudgetFilePath;
+    } else {
+      const l402Dir = path.join(os.homedir(), '.l402');
+      if (!fs.existsSync(l402Dir)) {
+        fs.mkdirSync(l402Dir, { recursive: true, mode: 0o700 });
+      }
+      this.budgetFilePath = path.join(l402Dir, 'budget.json');
     }
-    this.budgetFilePath = path.join(l402Dir, 'budget.json');
+  }
+
+  public resetDailySpend(): void {
+    const today = new Date().toISOString().slice(0, 10);
+    this.saveDailyBudget({ date: today, spentSats: 0 });
   }
 
   public validateInvoiceAmount(amountSats: number, invoiceStr?: string): void {

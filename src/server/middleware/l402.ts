@@ -91,8 +91,40 @@ export function l402Middleware(options: L402MiddlewareOptions): MiddlewareHandle
       );
     }
 
-    // 3. Atomic single-flight spend lock (prevents double-spend and replay attacks)
-    const consumeResult = store.atomicConsume(paymentHash);
+    // Extract time_before caveat if present for expiry
+    let expiresAt: number | undefined;
+    const timeCaveat = macaroon.caveats.find((cv) => cv.key === 'time_before');
+    if (timeCaveat) {
+      const parsed = parseInt(timeCaveat.value, 10);
+      if (!isNaN(parsed)) expiresAt = parsed;
+    }
+
+    // Edge Replay Barrier: Check Cloudflare Cache API if running in Workers edge runtime
+    if (typeof caches !== 'undefined' && (caches as any).default) {
+      try {
+        const edgeCache = (caches as any).default;
+        const cacheKey = new Request(`https://atm-rx-paygate.internal/spent/${paymentHash}`);
+        const cached = await edgeCache.match(cacheKey);
+        if (cached) {
+          return c.json(
+            { error: 'Authorization rejected: Payment hash has already been consumed (edge replay attempt)' },
+            409
+          );
+        }
+        const ttl = Math.max(60, (expiresAt || (Math.floor(Date.now() / 1000) + 600)) - Math.floor(Date.now() / 1000));
+        await edgeCache.put(
+          cacheKey,
+          new Response('spent', {
+            headers: { 'Cache-Control': `public, max-age=${ttl}` }
+          })
+        );
+      } catch {
+        // Cache API fallback gracefully to isolate in-memory ledger
+      }
+    }
+
+    // 3. Atomic single-flight spend lock (prevents double-spend and in-isolate replay attacks)
+    const consumeResult = store.atomicConsume(paymentHash, { allowUnrecorded: true, expiresAt });
     if (!consumeResult.success) {
       return c.json(
         {

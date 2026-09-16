@@ -1,3 +1,18 @@
+import { Buffer } from 'node:buffer';
+
+// Ensure Buffer and process exist on globalThis in Workers isolate
+if (typeof (globalThis as any).Buffer === 'undefined') {
+  (globalThis as any).Buffer = Buffer;
+}
+if (typeof (globalThis as any).process === 'undefined') {
+  (globalThis as any).process = {
+    env: {},
+    uptime: () => 0,
+    memoryUsage: () => ({ rss: 0, heapTotal: 0, heapUsed: 0, external: 0, arrayBuffers: 0 }),
+    platform: 'linux'
+  };
+}
+
 import { createServerApp } from './server/app.js';
 import { ServerStore } from './server/store.js';
 import { MockServerDriver } from './server/drivers/mock.js';

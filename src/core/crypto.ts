@@ -1,4 +1,5 @@
 import * as crypto from 'node:crypto';
+import { Buffer } from 'node:buffer';
 
 /**
  * High-performance, zero-third-party cryptographic primitives

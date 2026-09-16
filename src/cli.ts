@@ -13,7 +13,15 @@ import { ServerStore } from './server/store.js';
 import { MockServerDriver } from './server/drivers/mock.js';
 import { LNbitsServerDriver } from './server/drivers/lnbits.js';
 
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
+
 dotenv.config();
+
+// Automatically route Node global fetch through proxy if configured
+const proxyUrl = process.env.https_proxy || process.env.http_proxy || process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
+if (proxyUrl) {
+  setGlobalDispatcher(new ProxyAgent(proxyUrl));
+}
 
 const program = new Command();
 

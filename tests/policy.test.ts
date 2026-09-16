@@ -14,6 +14,7 @@ export async function runPolicyTests() {
     maxSatsPerRequest: 20,
     dailyBudgetSats: 100
   });
+  policy.resetDailySpend();
 
   // Under ceiling -> allowed
   assert.doesNotThrow(() => {
