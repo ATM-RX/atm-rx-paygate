@@ -1,5 +1,6 @@
 # atm-rx-paygate / atm-rx-l402
 
+[![npm version](https://img.shields.io/npm/v/atm-rx-l402.svg?style=flat-square&color=cb3837)](https://www.npmjs.com/package/atm-rx-l402)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers%20Edge-orange.svg?style=flat-square)](https://atm-rx-paygate.brandonbinion02.workers.dev)
 [![L402 Protocol](https://img.shields.io/badge/Protocol-L402%20%2F%20LSAT-emerald.svg?style=flat-square)](https://github.com/lightning/blips/blob/master/blip-0010.md)
@@ -70,12 +71,14 @@ sequenceDiagram
 ### 1. Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/ATM-RX/atm-rx-paygate.git
-cd atm-rx-paygate
+# Run instantly with zero installation via npx
+npx atm-rx-l402 --help
 
-# Install dependencies (strictly constrained footprint via pnpm)
-pnpm install
+# Or install globally
+npm install -g atm-rx-l402
+
+# Or install as an SDK into your project / AI agent loop
+npm install atm-rx-l402
 ```
 
 ### 2. Run the Gateway Server / Test Harness
