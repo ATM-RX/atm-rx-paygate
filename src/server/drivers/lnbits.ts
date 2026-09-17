@@ -51,7 +51,7 @@ export class LNbitsServerDriver implements ServerSettlementDriver {
     const data: any = await res.json();
     return {
       paymentHash: data.payment_hash,
-      paymentRequest: data.payment_request,
+      paymentRequest: data.payment_request || data.bolt11,
       amountSats,
       expiresAt: Math.floor(Date.now() / 1000) + ttlSeconds,
       settled: false

@@ -4,5 +4,5 @@ compatibility_date = "2024-09-15"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-SETTLEMENT_DRIVER = "mock"
+SETTLEMENT_DRIVER = "lnbits"
 L402_ROOT_KEY = "sovereign_edge_root_key_atm_rx_2026"
