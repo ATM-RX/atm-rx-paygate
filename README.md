@@ -1,12 +1,16 @@
 # atm-rx-paygate / atm-rx-l402
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers%20Edge-orange.svg?style=flat-square)](https://atm-rx-paygate.brandonbinion02.workers.dev)
 [![L402 Protocol](https://img.shields.io/badge/Protocol-L402%20%2F%20LSAT-emerald.svg?style=flat-square)](https://github.com/lightning/blips/blob/master/blip-0010.md)
+[![Lightning Network](https://img.shields.io/badge/Settlement-LNbits%20%2F%20Bolt11-yellow.svg?style=flat-square)](https://lnbits.com)
 [![Memory Footprint](https://img.shields.io/badge/RAM-%3C%2035MB-purple.svg?style=flat-square)](#hardware-footprint)
 [![License](https://img.shields.io/badge/License-MIT-black.svg?style=flat-square)](LICENSE)
 
 > **The "curl" of the Sovereign Machine-to-Machine Economy.**  
-> An ultra-lightweight, zero-bloat L402 (HTTP 402 Payment Required) reverse-proxy gateway and autonomous client CLI engineered for low-spec hardware and edge deployments.
+> An ultra-lightweight, zero-bloat L402 (HTTP 402 Payment Required) reverse-proxy gateway and autonomous AI agent client CLI engineered for low-spec hardware and edge deployments.
+>
+> 🌐 **Live Production Edge Endpoint:** [`https://atm-rx-paygate.brandonbinion02.workers.dev`](https://atm-rx-paygate.brandonbinion02.workers.dev)
 
 Developed by **Brandon Binion ([ATM-RX](https://github.com/ATM-RX))** — *Principal Systems Architect & Infrastructure Engineer*.
 
@@ -127,6 +131,19 @@ Engineered specifically for resource-constrained nodes (tested on Intel Celeron 
 *   **Disk Footprint (`node_modules`):** $\approx 41\text{MB}$ (via `pnpm` content-addressable storage)
 *   **Idle CPU Consumption:** $0.0\%$
 *   **Cold-Start Time:** $< 85\text{ms}$
+
+---
+
+## ☁️ Cloudflare Workers Edge Deployment
+
+The gateway is engineered to run seamlessly inside V8 serverless edge isolates across 300+ global data centers:
+
+```bash
+# Deploy to Cloudflare Workers edge in seconds
+pnpm run deploy
+```
+
+Configured with `nodejs_compat` runtime compatibility, Anycast Edge Cache replay defense (`caches.default`), and live LNbits Lightning Network settlement.
 
 ---
 
