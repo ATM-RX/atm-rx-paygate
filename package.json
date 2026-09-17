@@ -1,12 +1,26 @@
 {
-  "name": "atm-rx-paygate",
+  "name": "atm-rx-l402",
   "version": "1.0.0",
-  "description": "Ultra-lightweight sovereign L402 payment gateway and autonomous client CLI for programmatic micro-settlement",
+  "description": "⚡ Sovereign L402 Micro-Payment Protocol Suite & Autonomous AI Agent Client (Bitcoin Lightning Network + Macaroons)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "l402": "./bin/l402.js",
-    "atm-rx-l402": "./bin/l402.js"
+    "atm-rx-l402": "./bin/l402.js",
+    "l402": "./bin/l402.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ATM-RX/atm-rx-paygate.git"
+  },
+  "homepage": "https://atm-rx-paygate.brandonbinion02.workers.dev",
+  "bugs": {
+    "url": "https://github.com/ATM-RX/atm-rx-paygate/issues"
   },
   "scripts": {
     "build": "tsc",
